@@ -121,10 +121,16 @@ block and edit it — the classes carry all the styling.
 **The career chart** is generated SVG with real geometry: the x-axis is a true
 linear time scale from May 2007, so bar positions encode actual dates. Do not
 hand-edit the coordinates. If her roles change, recompute them — the mapping is
-`x = 132 + (t - 2007.33) / (2026.58 - 2007.33) * 856`, where `t` is a decimal
-year. Rows run **reverse chronological** (most recent at the top), matching the
-roster order and CV convention. Each `.ct-row` is a real button with `role`,
-`tabindex` and an `aria-label`.
+`x = 132 + (2026.58 - t) / (2026.58 - 2007.33) * 856`, where `t` is a decimal
+year.
+
+**Both axes run newest-first.** Rows are reverse chronological (most recent at
+the top) and the **time axis is reversed** — 2026 sits at the left edge and time
+runs backwards to the right. Because of that inversion a bar's *left* edge comes
+from its **end** date and its right edge from its start date; getting this
+backwards produces negative widths. Year ticks descend left to right.
+
+Each `.ct-row` is a real button with `role`, `tabindex` and an `aria-label`.
 
 **The fan diagram** in "One offering, nine assets" is hand-authored SVG.
 Within-group dot spacing is 14px and between-group 27px so the three journey
