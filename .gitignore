@@ -1,0 +1,13 @@
+# The master résumé carries Aparna's mobile number in the visible text, the
+# tagged structure tree and the bookmark titles. Keep it out of the repo so the
+# number can never leak if the repo is made public. The published copy in site/
+# is generated from it by scripts/make-web-cv.py.
+Aparna Kallakuri Resume_*.pdf
+
+.DS_Store
+**/.DS_Store
+Thumbs.db
+.venv/
+__pycache__/
+*.pyc
+node_modules/

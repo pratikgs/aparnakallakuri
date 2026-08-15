@@ -1,0 +1,50 @@
+name: Publish site
+
+# Every push to main republishes aparnakallakuri.com — but only if the checks
+# pass. If they fail, nothing is deployed and the version already live stays up.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:        # lets you republish by hand from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Queue deploys rather than cancelling them — interrupting an in-flight Pages
+# deployment can leave the site half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check the site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run pre-deploy checks
+        run: python3 scripts/check.py
+
+  deploy:
+    name: Publish to aparnakallakuri.com
+    needs: check
+    # Pull requests are checked but never published.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Package the site folder
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
