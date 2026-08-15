@@ -14,14 +14,13 @@ account, no build step, no bill.
 cd /Users/pratik/work/aparna
 git add -A
 git commit -m "Aparna Kallakuri personal site"
-gh repo create aparnakallakuri --private --source=. --push
+gh repo create aparnakallakuri --public --source=. --push
 ```
 
-Private is fine — GitHub Pages serves public sites from private repos on Free
-plans as long as the deployment goes through Actions, which is what this uses.
-If you hit any restriction, `gh repo edit --visibility public` and re-run; the
-repo is safe to make public because the master résumé (the only file holding her
-phone number) is gitignored and never committed.
+**The repo must be public on a GitHub Free account.** Pages only publishes from a
+private repo on Pro, Team or Enterprise. That is fine here: the master résumé —
+the only file holding her phone number — is gitignored and never committed, so
+nothing private is in the repo. The published site is public either way.
 
 Keep that master PDF somewhere you can find it — it's the input to
 `scripts/make-web-cv.py` whenever her CV changes.
