@@ -5,7 +5,7 @@
 
    Colour carries meaning, not decoration:
      violet = structure, navigation, the system
-     coral  = outcomes only. If it is coral, it is a result.
+     signal = outcomes only. If it is teal, it is a result.
 
    Display: Archivo (variable width axis, set expanded)
    Text:    IBM Plex Sans   Data: IBM Plex Mono
@@ -31,8 +31,8 @@
   --violet-ink:  #a98bff;   /* violet as text       */
   --violet-dim:  #3a2b63;
 
-  --coral:       #ff6250;   /* outcomes: fills      */
-  --coral-ink:   #ff8574;   /* outcomes: text       */
+  --signal:       #2dd4b0;   /* outcomes: fills      */
+  --signal-ink:   #3dd9b4;   /* outcomes: text       */
 
   --shadow: 0 1px 0 rgba(255,255,255,.04), 0 18px 40px -24px rgba(0,0,0,.9);
 
@@ -81,8 +81,8 @@
     --violet-ink:  #5b29dc;
     --violet-dim:  #e5ddfb;
 
-    --coral:       #e33e28;
-    --coral-ink:   #c0301c;
+    --signal:       #00a389;
+    --signal-ink:   #00755e;
 
     --shadow: 0 1px 0 rgba(20,17,31,.03), 0 14px 32px -22px rgba(20,17,31,.35);
   }
@@ -105,8 +105,8 @@
   --violet-ink:  #5b29dc;
   --violet-dim:  #e5ddfb;
 
-  --coral:       #e33e28;
-  --coral-ink:   #c0301c;
+  --signal:       #00a389;
+  --signal-ink:   #00755e;
 
   --shadow: 0 1px 0 rgba(20,17,31,.03), 0 14px 32px -22px rgba(20,17,31,.35);
 }
@@ -242,7 +242,7 @@ a { color: inherit; }
   transition: color .2s, border-color .2s;
 }
 .nav__links a:hover { color: var(--ink); border-bottom-color: var(--violet); }
-.nav__links a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--coral); }
+.nav__links a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--signal); }
 
 .toggle {
   margin-left: var(--s-2);
@@ -314,8 +314,8 @@ a { color: inherit; }
 .hero__portrait::after {
   content: ""; position: absolute; left: -5px; top: -5px;
   width: 12px; height: 12px;
-  border-left: 2px solid var(--coral);
-  border-top: 2px solid var(--coral);
+  border-left: 2px solid var(--signal);
+  border-top: 2px solid var(--signal);
 }
 .hero__vitals { display: grid; gap: 2px; }
 .hero__vitals span {
@@ -346,7 +346,7 @@ a { color: inherit; }
 .btn:hover { border-color: var(--violet); background: var(--surface); }
 .btn svg { width: .9rem; height: .9rem; flex: none; }
 .btn--primary { background: var(--violet); border-color: var(--violet); color: #fff; }
-.btn--primary:hover { background: var(--coral); border-color: var(--coral); color: #fff; }
+.btn--primary:hover { background: var(--signal); border-color: var(--signal); color: #fff; }
 
 /* ---------- 6. Career chart ------------------------------- */
 
@@ -456,7 +456,7 @@ a { color: inherit; }
   gap: var(--s-2);
   place-items: center;
   /* All five marks stay confident — this is a credibility wall, not a set of
-     disabled tabs. Selection is carried by the coral rule and the surface, not
+     disabled tabs. Selection is carried by the signal rule and the surface, not
      by dimming everything else. */
   color: var(--ink-2);
   transition: background .2s var(--ease), color .2s var(--ease);
@@ -468,7 +468,7 @@ a { color: inherit; }
 .mk[aria-selected="true"]::after {
   content: "";
   position: absolute; left: -1px; right: -1px; bottom: -1px;
-  height: 2px; background: var(--coral);
+  height: 2px; background: var(--signal);
 }
 
 /* Employer logos. Each is monochrome via currentColor so the wall reads as one
@@ -540,7 +540,7 @@ a { color: inherit; }
   font-weight: 700;
   font-size: var(--t-xl);
   line-height: 1;
-  color: var(--coral-ink);
+  color: var(--signal-ink);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -615,9 +615,9 @@ a { color: inherit; }
   color: var(--muted); margin-bottom: var(--s-1);
 }
 .spec__grid p { font-size: var(--t-sm); line-height: 1.55; color: var(--ink-2); }
-/* The result column is the only place coral appears in body copy. */
-.spec__grid .res h4 { color: var(--coral-ink); }
-.spec__grid .res p { color: var(--coral-ink); }
+/* The result column is the only place the signal colour appears in body copy. */
+.spec__grid .res h4 { color: var(--signal-ink); }
+.spec__grid .res p { color: var(--signal-ink); }
 
 /* Fan diagram */
 .fan { margin-top: var(--s-2); width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; }
@@ -629,7 +629,7 @@ a { color: inherit; }
 .fan[data-drawn="true"] .fan-link { animation: draw 1s var(--ease) forwards; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 .fan-node { fill: var(--surface-2); stroke: var(--grid-strong); }
-.fan-dot  { fill: var(--coral); }
+.fan-dot  { fill: var(--signal); }
 .fan text {
   font-family: var(--f-mono); font-size: 10px;
   letter-spacing: .08em; text-transform: uppercase; fill: var(--muted);
@@ -680,7 +680,7 @@ a { color: inherit; }
 /* ---------- 13. Contact ----------------------------------- */
 
 .contact h2 { font-size: var(--t-3xl); margin-bottom: var(--s-4); max-width: 18ch; }
-.contact h2 em { font-style: normal; color: var(--coral-ink); }
+.contact h2 em { font-style: normal; color: var(--signal-ink); }
 .contact__mail {
   display: inline-block;
   margin-block: var(--s-4);
@@ -696,7 +696,7 @@ a { color: inherit; }
   word-break: break-word;
   transition: color .2s, border-color .2s;
 }
-.contact__mail:hover { color: var(--coral-ink); border-color: var(--coral); }
+.contact__mail:hover { color: var(--signal-ink); border-color: var(--signal); }
 
 /* ---------- 14. Footer ------------------------------------ */
 

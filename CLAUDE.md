@@ -76,7 +76,7 @@ inversion.
 | Ink | `#f3f0fa` | `#14111f` |
 | Grid | `#241f38` | `#e7e4f0` |
 | Violet | `#8b5cf6` / `--violet-ink #a98bff` | `#6d3ee8` / `#5b29dc` |
-| Coral | `#ff6250` / `--coral-ink #ff8574` | `#e33e28` / `#c0301c` |
+| Signal | `#2dd4b0` / `--signal-ink #3dd9b4` | `#00a389` / `#00755e` |
 
 Type: **Archivo** (display, set at `wdth 108-118` via the variable width axis —
 that expanded setting is the signature; use the `.display` class), **IBM Plex
@@ -86,12 +86,14 @@ labels, dates).
 Three rules that are easy to break:
 
 - **Colour carries meaning.** Violet is structure, navigation and the system.
-  **Coral means an outcome** — a result, a number she delivered. If it is coral
-  it is a result. Never use coral decoratively, and never render a result in
-  violet. One deliberate exception: the unit signs (`$ M % +`) in the readout
-  row are violet, because they qualify a figure rather than being the result.
-- **Two tokens per accent.** `--violet` / `--coral` are for fills, bars and
-  marks; `--violet-ink` / `--coral-ink` are the text-safe versions. Using a fill
+  **The signal teal means an outcome** — a result, a number she delivered. If it
+  is teal it is a result. Never use it decoratively, and never render a result in
+  violet. One deliberate exception: the unit signs (`$ M % +`) in the readout row
+  are violet, because they qualify a figure rather than being the result.
+  The signal colour was coral until it proved muddy against violet on the light
+  ground; teal-green sits clear of violet on the wheel and reads as growth.
+- **Two tokens per accent.** `--violet` / `--signal` are for fills, bars and
+  marks; `--violet-ink` / `--signal-ink` are the text-safe versions. Using a fill
   token as text fails contrast in one of the themes.
 - **Themes are defined three times.** Bare `:root` (dark), then
   `@media (prefers-color-scheme: light)` guarded as
@@ -113,7 +115,7 @@ block and edit it — the classes carry all the styling.
   measured. `.outcomes` is one shared grid and each `li` is `display: contents`,
   so the figures line up in a true column. Don't give the `li` its own grid.
 - **A case note** — `<article class="spec">` in `#proof`, always Context / Move /
-  Result. The result column carries `class="res"`, which is what makes it coral.
+  Result. The result column carries `class="res"`, which is what makes it teal.
 - **A testimonial** — `<figure class="voice">` in `#voices`.
 - **A stat** — `<div class="readout__item">`. `data-count` drives the count-up and
   must be a bare integer, with any `$`, `%` or `+` in a sibling `<span class="u">`.
