@@ -1,10 +1,16 @@
 # Deploying aparnakallakuri.com
 
-One-time setup. After this, every push to `main` republishes the site
-automatically and nobody needs to touch this file again.
-
 Hosting is **GitHub Pages**, driven by `.github/workflows/deploy.yml`. No second
 account, no build step, no bill.
+
+**Status: live.** Repo `pratikgs/aparnakallakuri`, Pages enabled with the Actions
+source, first deploy green, custom domain claimed. The only outstanding step is
+**the DNS records in section 3** — until those exist the site is reachable only
+at its temporary address, and will render unstyled there (see the note at the
+end of section 3).
+
+Sections 1 and 2 are kept as a record of what was done, and for rebuilding from
+scratch.
 
 ---
 
@@ -38,27 +44,52 @@ before the domain is attached.
 
 ## 3. Point the domain
 
-`site/CNAME` already contains `aparnakallakuri.com`, which claims the domain on
-deploy. Add these records at whatever registrar holds the domain:
+The domain is already claimed on the repo (`cname: aparnakallakuri.com`), which
+is what stops anyone else pointing their Pages site at it. What remains is DNS.
 
-| Type | Name | Value |
-|---|---|---|
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
-| CNAME | `www` | `<your-github-username>.github.io` |
+**The domain is registered at Namecheap** on Namecheap BasicDNS
+(`dns1/dns2.registrar-servers.com`). Go to **Domain List → Manage
+aparnakallakuri.com → Advanced DNS**.
 
-Then **Settings → Pages → Custom domain** → enter `aparnakallakuri.com` → Save.
-Wait for the DNS check to go green, then tick **Enforce HTTPS** (the certificate
-can take up to an hour to issue; the tick box is greyed out until it's ready).
+First **delete the parking records** Namecheap adds by default — typically a
+`CNAME` for `www` pointing at `parkingpage.namecheap.com`, and an A or *URL
+Redirect Record* on `@`. Leaving them in place will fight the records below.
+
+Then add:
+
+| Type | Host | Value | TTL |
+|---|---|---|---|
+| A Record | `@` | `185.199.108.153` | Automatic |
+| A Record | `@` | `185.199.109.153` | Automatic |
+| A Record | `@` | `185.199.110.153` | Automatic |
+| A Record | `@` | `185.199.111.153` | Automatic |
+| CNAME Record | `www` | `pratikgs.github.io.` | Automatic |
+
+All four A records — they are GitHub's Pages load balancers and the redundancy
+is the point. The CNAME value is the *account* host, `pratikgs.github.io`, not
+the repo.
+
+Then **Settings → Pages** on the repo: wait for the DNS check to go green and
+tick **Enforce HTTPS**. That box stays greyed out until GitHub issues the
+certificate — usually minutes, occasionally up to an hour.
 
 Verify:
 
 ```bash
-dig +short aparnakallakuri.com
-curl -sI https://aparnakallakuri.com | head -1
+dig +short aparnakallakuri.com                    # expect the four 185.199.x.x
+curl -sI https://aparnakallakuri.com | head -1    # expect HTTP/2 200
 ```
+
+While DNS is still on Namecheap parking, `dig` returns `162.255.119.146`. When it
+returns the four GitHub addresses instead, it has switched.
+
+**The temporary address renders unstyled — this is expected.** Until the domain
+resolves, the site is served from `https://pratikgs.github.io/aparnakallakuri/`,
+a sub-path. The page links its CSS, JS and images as root-relative paths
+(`/assets/...`), which is correct for the apex domain where the site sits at `/`,
+but resolves to `pratikgs.github.io/assets/...` on the sub-path and 404s. Nothing
+is broken and nothing needs changing — attaching the domain fixes it. Do **not**
+"fix" this by rewriting the paths to be relative; that would break the real site.
 
 ## 4. Give Aparna access
 
