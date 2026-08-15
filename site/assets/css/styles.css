@@ -226,19 +226,22 @@ a { color: inherit; }
 }
 .mark b { color: var(--violet-ink); font-weight: 700; }
 
-.nav__links { display: flex; gap: var(--s-4); margin-left: auto; list-style: none; padding: 0; }
+.nav__links { display: flex; gap: var(--s-3); margin-left: auto; list-style: none; padding: 0; }
+/* Archivo, not mono: the nav is for reading at a glance, so it takes the
+   display face at a legible size and near-full ink contrast. */
 .nav__links a {
-  font-family: var(--f-mono);
-  font-size: var(--t-xs);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-family: var(--f-display);
+  font-variation-settings: "wdth" 104;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
   text-decoration: none;
-  padding-block: 2px;
-  border-bottom: 1px solid transparent;
+  padding: 4px 8px;
+  border-bottom: 2px solid transparent;
   transition: color .2s, border-color .2s;
 }
-.nav__links a:hover { color: var(--ink); }
+.nav__links a:hover { color: var(--ink); border-bottom-color: var(--violet); }
 .nav__links a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--coral); }
 
 .toggle {
@@ -420,7 +423,9 @@ a { color: inherit; }
   display: block;
   margin-bottom: var(--s-2);
 }
-.readout__v .u { color: var(--coral-ink); }
+/* Unit signs ($ M % +) sit in violet: they qualify the figure rather than being
+   the result themselves, so the numeral keeps full ink weight. */
+.readout__v .u { color: var(--violet-ink); }
 .readout__l {
   font-size: var(--t-sm);
   line-height: 1.4;
@@ -450,7 +455,10 @@ a { color: inherit; }
   display: grid;
   gap: var(--s-2);
   place-items: center;
-  color: var(--muted);
+  /* All five marks stay confident — this is a credibility wall, not a set of
+     disabled tabs. Selection is carried by the coral rule and the surface, not
+     by dimming everything else. */
+  color: var(--ink-2);
   transition: background .2s var(--ease), color .2s var(--ease);
   min-height: 6.5rem;
 }
@@ -463,18 +471,22 @@ a { color: inherit; }
   height: 2px; background: var(--coral);
 }
 
-/* Typographic wordmark. Swap the <span> for an <svg> logo and it still lines up. */
+/* Employer logos. Each is monochrome via currentColor so the wall reads as one
+   set and adapts to both themes. Aspect ratios differ enormously (ZainTECH is
+   ~6:1, HP is 1:1), so each carries its own --lh to balance them optically —
+   matching heights would make the wide wordmarks dwarf the round marks. */
 .mk__logo {
-  font-family: var(--f-display);
-  font-variation-settings: "wdth" 108;
-  font-weight: 800;
-  font-size: 1.4rem;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 1;
+  display: grid;
+  place-items: center;
+  height: 44px;
   color: currentColor;
 }
-.mk__logo svg, .mk__logo img { height: 1.6rem; width: auto; }
+.mk__logo svg, .mk__logo img {
+  height: var(--lh, 30px);
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
 .mk__years {
   font-family: var(--f-mono);
   font-size: var(--t-xs);
@@ -667,7 +679,7 @@ a { color: inherit; }
 
 /* ---------- 13. Contact ----------------------------------- */
 
-.contact h2 { font-size: var(--t-3xl); margin-bottom: var(--s-3); max-width: 18ch; }
+.contact h2 { font-size: var(--t-3xl); margin-bottom: var(--s-4); max-width: 18ch; }
 .contact h2 em { font-style: normal; color: var(--coral-ink); }
 .contact__mail {
   display: inline-block;
@@ -699,6 +711,21 @@ a { color: inherit; }
 .footer ul { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; padding: 0; }
 .footer a { text-decoration: none; }
 .footer a:hover { color: var(--ink); }
+
+/* Trademark notice: spans the full footer row, set quieter than the rest. */
+.footer__legal {
+  flex-basis: 100%;
+  max-width: 62rem;
+  margin-top: var(--s-2);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--grid);
+  font-family: var(--f-text);
+  font-size: var(--t-xs);
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--muted);
+  opacity: .8;
+}
 
 /* ---------- 15. Motion ------------------------------------ */
 

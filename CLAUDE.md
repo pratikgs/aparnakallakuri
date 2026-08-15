@@ -88,7 +88,8 @@ Three rules that are easy to break:
 - **Colour carries meaning.** Violet is structure, navigation and the system.
   **Coral means an outcome** — a result, a number she delivered. If it is coral
   it is a result. Never use coral decoratively, and never render a result in
-  violet.
+  violet. One deliberate exception: the unit signs (`$ M % +`) in the readout
+  row are violet, because they qualify a figure rather than being the result.
 - **Two tokens per accent.** `--violet` / `--coral` are for fills, bars and
   marks; `--violet-ink` / `--coral-ink` are the text-safe versions. Using a fill
   token as text fails contrast in one of the themes.
@@ -121,7 +122,9 @@ block and edit it — the classes carry all the styling.
 linear time scale from May 2007, so bar positions encode actual dates. Do not
 hand-edit the coordinates. If her roles change, recompute them — the mapping is
 `x = 132 + (t - 2007.33) / (2026.58 - 2007.33) * 856`, where `t` is a decimal
-year. Each `.ct-row` is a real button with `role`, `tabindex` and an `aria-label`.
+year. Rows run **reverse chronological** (most recent at the top), matching the
+roster order and CV convention. Each `.ct-row` is a real button with `role`,
+`tabindex` and an `aria-label`.
 
 **The fan diagram** in "One offering, nine assets" is hand-authored SVG.
 Within-group dot spacing is 14px and between-group 27px so the three journey
@@ -129,15 +132,31 @@ stages read as three groups. Change a dot and change its path endpoint to match.
 
 ## Company marks
 
-The employer marks are **typographic wordmarks set in Archivo**, not the
-companies' real logos. That is deliberate: hand-drawn approximations of IBM's
-bars or EY's beam look like knockoffs, and their real assets are trademarked.
+The five employer marks are the companies' **real logos**, inlined as SVG.
+Sources: IBM and EY from Wikimedia Commons (both hosted there as public domain,
+being below the threshold of originality), HP from Simple Icons (CC0), and
+ZainTECH and Soroco from the companies' own websites.
 
-If Aparna supplies official brand SVGs, drop one inside the
-`<span class="mk__logo">` in place of the text — `.mk__logo svg` already
-constrains the height so it lines up with the others. Use each company's own
-brand-asset page, keep every mark to the same optical weight, and don't recolour
-them.
+Rules for these:
+
+- **Monochrome via `currentColor`.** Every fill is rewritten to `currentColor` so
+  the wall reads as one set and works in both themes. Do not reintroduce brand
+  colours — five clashing palettes on a violet ground looks like a sponsor
+  banner, and mixed light/dark logo variants break one of the themes.
+- **Each carries its own `--lh`.** Aspect ratios run from ~6:1 (ZainTECH) to 1:1
+  (HP). Equal heights would make the wide wordmarks dwarf the round marks, so
+  every logo has a hand-tuned optical height on `.mk__logo`. Re-tune by eye if
+  you swap one.
+- **EY's viewBox is cropped** to `0 0 479 400` to drop the "Building a better
+  working world" tagline, which is illegible at this size. The paths are
+  untouched.
+- **The accessible name lives on the button**, as `aria-label`, because the SVG
+  replaced the text that used to name it. Every `.mk` must keep one.
+
+Trademarks belong to their owners. The footer carries a notice
+(`.footer__legal`) stating that the logos identify former employers and imply no
+endorsement or affiliation. **Do not remove it while the logos are in use** —
+it is what makes this nominative use rather than an implied endorsement.
 
 ## Deployment
 
