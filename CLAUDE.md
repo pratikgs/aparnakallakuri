@@ -59,52 +59,85 @@ rule — it will break one of the theme states.
 LinkedIn profile. If she asks for a new stat or achievement, use her wording; do
 not invent supporting detail, round numbers up, or embellish a result.
 
-## Design system
+## Design system — "Positioned"
 
-Indigo + marigold on limestone. The marigold is drawn from the backdrop of her
-own headshot.
+The visual language is borrowed from analyst evaluation charts — Gartner Magic
+Quadrant, IDC MarketScape — because that is the vernacular of her industry, and
+she personally built the analyst programme that put ZainTECH in those Leader
+quadrants. The site is an instrument, not a magazine: coordinate grids, plotted
+intervals, axis ticks, spec sheets.
 
-| | Light | Dark |
+Dark is the primary expression; light is a designed alternative, not an
+inversion.
+
+| | Dark (default) | Light |
 |---|---|---|
-| Ground | `#e9eae5` limestone | `#0c1426` deep indigo |
-| Ink | `#101b33` | `#edede6` |
-| Accent | `--accent` marks · `--accent-ink` small text · `--accent-display` large text | `#f0b23c` |
+| Ground | `#0c0a14` violet-black | `#ffffff` |
+| Ink | `#f3f0fa` | `#14111f` |
+| Grid | `#241f38` | `#e7e4f0` |
+| Violet | `#8b5cf6` / `--violet-ink #a98bff` | `#6d3ee8` / `#5b29dc` |
+| Coral | `#ff6250` / `--coral-ink #ff8574` | `#e33e28` / `#c0301c` |
 
-Type: **Newsreader** (display serif), **IBM Plex Sans** (body — a nod to her
-twelve years at IBM), **IBM Plex Mono** (dates, stats, labels).
+Type: **Archivo** (display, set at `wdth 108-118` via the variable width axis —
+that expanded setting is the signature; use the `.display` class), **IBM Plex
+Sans** (body — a nod to her twelve years at IBM), **IBM Plex Mono** (data,
+labels, dates).
 
-Two things that are easy to get wrong:
+Three rules that are easy to break:
 
-- **Three accent tokens, not one.** Marigold fails contrast as small text on
-  limestone. `--accent-ink` (7.0:1) is for body-size accent text,
-  `--accent-display` (3.7:1, large-text AA) only for big serif moments, and
-  `--accent` for marks and rules. Do not collapse them.
-- **Themes are defined three times.** Bare `:root` (light), then
-  `@media (prefers-color-scheme: dark)` guarded as `:root:not([data-theme="light"])`,
-  then `:root[data-theme="dark"]`. A colour defined only inside one of those
-  blocks renders one theme's text on the other theme's background. Always change
-  a token in all three places.
+- **Colour carries meaning.** Violet is structure, navigation and the system.
+  **Coral means an outcome** — a result, a number she delivered. If it is coral
+  it is a result. Never use coral decoratively, and never render a result in
+  violet.
+- **Two tokens per accent.** `--violet` / `--coral` are for fills, bars and
+  marks; `--violet-ink` / `--coral-ink` are the text-safe versions. Using a fill
+  token as text fails contrast in one of the themes.
+- **Themes are defined three times.** Bare `:root` (dark), then
+  `@media (prefers-color-scheme: light)` guarded as
+  `:root:not([data-theme="dark"])`, then `:root[data-theme="light"]`. A colour
+  defined in only one of those blocks renders one theme's text on the other
+  theme's ground. Change a token in all three places.
 
 ## Section patterns
 
 `index.html` is commented by section. To add an item, copy the nearest sibling
 block and edit it — the classes carry all the styling.
 
-- **A job** — `<article class="job">` in `#career`, newest first. The IBM entry
-  nests its four sub-roles in a `<details class="subroles">`.
-- **A case note** — `<article class="case">` in `#proof`, always Context / Move /
-  Result in that order. Result text renders in the accent colour.
+- **An employer** — a `<button class="mk" role="tab">` in `.roster__marks` plus a
+  matching `<section class="panel" role="tabpanel">`. The button's `data-key`,
+  its `id` (`t-<key>`), and the panel's `id` (`p-<key>`) must all agree, and the
+  career chart row's `data-target` must use the same key — that is what keeps the
+  chart and the tabs in sync. Order is newest first.
+- **An outcome** — an `<li>` in `.outcomes`: `<b>` the figure, `<span>` what it
+  measured. `.outcomes` is one shared grid and each `li` is `display: contents`,
+  so the figures line up in a true column. Don't give the `li` its own grid.
+- **A case note** — `<article class="spec">` in `#proof`, always Context / Move /
+  Result. The result column carries `class="res"`, which is what makes it coral.
 - **A testimonial** — `<figure class="voice">` in `#voices`.
-- **A stat** — `<div class="numbers__item">` in the numbers band. The
-  `data-count` attribute drives the count-up animation; it must be a bare
-  integer, with any `$`, `%` or `+` in a sibling `<span class="unit">`.
-- **A detail list** — `<div class="detail">` in `#beyond`. Inside each `<li>`,
-  `<b>` is the label and `<span>` the supporting line; both render as blocks.
+- **A stat** — `<div class="readout__item">`. `data-count` drives the count-up and
+  must be a bare integer, with any `$`, `%` or `+` in a sibling `<span class="u">`.
 
-The fan diagram in "One offering, nine assets" is hand-authored SVG. Node
-coordinates are commented — within-group spacing is 14px and between-group 27px
-so the three journey stages read as three groups. If you change one dot, change
-its path endpoint to match.
+**The career chart** is generated SVG with real geometry: the x-axis is a true
+linear time scale from May 2007, so bar positions encode actual dates. Do not
+hand-edit the coordinates. If her roles change, recompute them — the mapping is
+`x = 132 + (t - 2007.33) / (2026.58 - 2007.33) * 856`, where `t` is a decimal
+year. Each `.ct-row` is a real button with `role`, `tabindex` and an `aria-label`.
+
+**The fan diagram** in "One offering, nine assets" is hand-authored SVG.
+Within-group dot spacing is 14px and between-group 27px so the three journey
+stages read as three groups. Change a dot and change its path endpoint to match.
+
+## Company marks
+
+The employer marks are **typographic wordmarks set in Archivo**, not the
+companies' real logos. That is deliberate: hand-drawn approximations of IBM's
+bars or EY's beam look like knockoffs, and their real assets are trademarked.
+
+If Aparna supplies official brand SVGs, drop one inside the
+`<span class="mk__logo">` in place of the text — `.mk__logo svg` already
+constrains the height so it lines up with the others. Use each company's own
+brand-asset page, keep every mark to the same optical weight, and don't recolour
+them.
 
 ## Deployment
 
