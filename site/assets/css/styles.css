@@ -279,6 +279,8 @@ a { color: inherit; }
   align-items: start;
   margin-bottom: var(--s-5);
 }
+/* Nothing follows it inside the hero now, so it need not reserve the gap. */
+.hero__top:last-child { margin-bottom: 0; }
 @media (min-width: 60rem) {
   .hero__top { grid-template-columns: minmax(0,1fr) auto; gap: var(--s-6); }
 }
@@ -355,7 +357,10 @@ a { color: inherit; }
   background: var(--surface);
   padding: var(--s-4) var(--s-3) var(--s-3);
   box-shadow: var(--shadow);
+  /* Sits below the detail panel in Experience, so it carries its own gap. */
+  margin: var(--s-4) 0 0;
 }
+.section--alt .chart { background: var(--ground-2); }
 .chart__head {
   display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4);
   align-items: baseline; justify-content: space-between;
@@ -397,6 +402,51 @@ a { color: inherit; }
 .js .chart[data-drawn="false"] .ct-bar { transform: scaleX(0); transform-origin: left center; }
 .chart[data-drawn="true"] .ct-bar { animation: grow .7s var(--ease) backwards; transform-origin: left center; }
 @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---------- 6b. Market map -------------------------------- */
+
+/* Same frame and header as the career chart — the two are a matched pair of
+   instruments, one plotting time and one plotting geography. */
+.map {
+  border: 1px solid var(--grid);
+  background: var(--surface);
+  padding: var(--s-4) var(--s-3) var(--s-3);
+  box-shadow: var(--shadow);
+  margin: 0;
+}
+.section--alt .map { background: var(--ground-2); }
+.map__head {
+  display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4);
+  align-items: baseline; justify-content: space-between;
+  margin-bottom: var(--s-3);
+  padding-inline: var(--s-2);
+}
+.map__title {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.map__scroll { overflow-x: auto; }
+.wm { width: 100%; min-width: 34rem; height: auto; display: block; }
+
+.wm-grat line { stroke: var(--grid); stroke-width: 1; }
+
+/* Unworked land is deliberately flat and close to the ground: the only thing
+   this map has to say is worked / not worked, so the contrast between the two
+   carries the whole figure. */
+.wm-land { fill: var(--surface); stroke: var(--grid-strong); stroke-width: .5; }
+
+/* A worked market is scope, not an outcome — so it is violet, never the signal
+   teal. Opacity rather than a second fill keeps it to one token. */
+.wm-mk {
+  fill: var(--violet);
+  fill-opacity: .52;
+  stroke: var(--violet);
+  stroke-width: .6;
+  transition: fill-opacity .2s var(--ease), opacity .2s var(--ease);
+}
 
 /* ---------- 7. Readout (stats) ---------------------------- */
 
@@ -664,6 +714,10 @@ a { color: inherit; }
 .data { display: grid; gap: 1px; background: var(--grid); border: 1px solid var(--grid); }
 @media (min-width: 48rem) { .data { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 68rem) { .data { grid-template-columns: repeat(3, 1fr); } }
+/* Four blocks, so two-up all the way — a three-up grid would leave the last
+   row two empty cells wide, showing the hairline colour as a solid slab. */
+@media (min-width: 68rem) { .data--pairs { grid-template-columns: 1fr 1fr; } }
+
 .data__block { background: var(--ground); padding: var(--s-4); }
 .section--alt .data__block { background: var(--ground-2); }
 .data__block h3 {

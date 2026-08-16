@@ -47,6 +47,45 @@ A web search surfaced a claim that she spoke on a Web Summit Qatar panel
 alongside JPMorganChase's CMO. No source substantiates it, so it is not on the
 site. If it's true it's a strong addition — she would just need to confirm it.
 
+### 7. What each market on the map actually covers
+
+The market coverage map paints whole countries, so every regional acronym had
+to be resolved to a country list. These live in `REGIONS` in
+`scripts/make-market-map.py`; re-run it after any edit.
+
+- **SPGI** — Spain, Portugal, Greece, **Italy**. Confirmed; the I is Italy, not
+  Israel. Israel is not painted anywhere on the map.
+- **MEA** — Middle East plus **North Africa** only. Iran and Turkey are not
+  included.
+- **North America** — United States and Canada. Mexico is its own market.
+- **Poland** — read from "polamd" in the brief as a typo for Poland.
+- **Sub-Saharan Africa was removed** after first being drawn. Africa below the
+  Sahara is now background land, not a market.
+- **Bahrain** has no polygon at Natural Earth's 110m resolution, so it is not
+  drawn. The rest of the Gulf reads as one mass, so this is invisible in
+  practice.
+
+### 8. India is drawn from India's point of view
+
+India uses Natural Earth's India edition, so Jammu and Kashmir is shown
+entire — including Pakistan-administered Kashmir and Aksai Chin — as Indian
+maps are required to show it. Every other country comes from the standard
+edition, which draws the line of control instead. This is a deliberate choice,
+not a data mismatch: audiences in India expect it, and audiences elsewhere are
+very unlikely to notice.
+
+### 9. The map has no labels and no dates
+
+The legend was removed, so nothing on the figure names a market — the only
+text is the section dek, "Ten markets across five continents". A reader who
+does not recognise a shape learns nothing from it. The markets are still named
+in the SVG `<title>`, so screen readers get the full list, but sighted readers
+do not. Worth revisiting if the map is meant to carry the point on its own.
+
+The map also says *where* but never *when*. Ten markets could be read as
+current scope rather than nineteen years of accumulated scope; the fix is a
+line in the figure caption, not more geometry.
+
 ---
 
 ## Resolved

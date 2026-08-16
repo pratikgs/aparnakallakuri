@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>og card</title>
+<!--
+  Source for site/assets/img/og.png — the link-preview card. It is a screenshot
+  of this page, not a hand-drawn image, so it stays in step with the design
+  tokens. Regenerate whenever the hero role line changes:
+
+    cp scripts/og-card.html site/ && (cd site && python3 -m http.server 8080 &)
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless \
+      --hide-scrollbars --force-device-scale-factor=1 --virtual-time-budget=8000 \
+      --blink-settings=preferredColorScheme=0 --window-size=1200,630 \
+      --screenshot=site/assets/img/og.png http://localhost:8080/og-card.html
+    rm site/og-card.html
+
+  It has to be served from site/ so /assets/css and /assets/img resolve, and it
+  must not stay there — check.py counts every file under site/ as published.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=block">
+<link rel="stylesheet" href="/assets/css/styles.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--ground);}
+  .card{
+    position:relative;width:1200px;height:630px;overflow:hidden;
+    background:var(--ground);color:var(--ink);
+    padding:56px 64px;box-sizing:border-box;
+    display:flex;flex-direction:column;
+  }
+  /* the same coordinate grid the page uses */
+  .card::before{
+    content:"";position:absolute;inset:0;
+    background:
+      repeating-linear-gradient(to right,var(--grid) 0 1px,transparent 1px 150px),
+      repeating-linear-gradient(to bottom,var(--grid) 0 1px,transparent 1px 150px);
+    opacity:.55;
+  }
+  .card > *{position:relative;}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:500;
+    letter-spacing:.16em;color:var(--violet-ink);margin:0;
+  }
+  .eyebrow b{font-weight:400;margin-right:14px;}
+  .name{
+    font-family:Archivo,sans-serif;font-variation-settings:"wdth" 114;
+    font-weight:800;font-size:104px;line-height:.94;letter-spacing:-.015em;
+    margin:34px 0 0;text-transform:uppercase;
+  }
+  .name span{display:block;}
+  .name .l2{color:var(--violet-ink);}
+  .role{
+    font-family:"IBM Plex Sans",sans-serif;font-size:29px;line-height:1.38;
+    color:var(--muted);margin:30px 0 0;max-width:940px;
+  }
+  .foot{
+    margin-top:auto;padding-top:22px;border-top:1px solid var(--grid);
+    display:flex;align-items:baseline;justify-content:space-between;
+  }
+  .orgs{
+    font-family:Archivo,sans-serif;font-variation-settings:"wdth" 112;
+    font-weight:700;font-size:31px;letter-spacing:.02em;color:var(--muted);
+  }
+  .orgs i{font-style:normal;color:var(--grid);margin:0 14px;}
+  .years{
+    font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:500;
+    letter-spacing:.14em;color:var(--signal-ink);
+  }
+  .portrait{
+    position:absolute;top:56px;right:64px;width:140px;height:140px;
+  }
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+  .portrait::before{
+    content:"";position:absolute;top:-9px;left:-9px;width:22px;height:22px;
+    border-top:2px solid var(--signal);border-left:2px solid var(--signal);
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <p class="eyebrow"><b>&#x2517;</b>DUBAI, UNITED ARAB EMIRATES</p>
+  <h1 class="name"><span>Aparna</span><span class="l2">Kallakuri</span></h1>
+  <p class="role">Marketing leadership that turns complex enterprise technology into pipeline, perception and standing.</p>
+  <div class="foot">
+    <div class="orgs">ZAINTECH<i>/</i>EY<i>/</i>IBM<i>/</i>HP</div>
+    <div class="years">19 YEARS</div>
+  </div>
+  <div class="portrait">
+    <img src="/assets/img/aparna-kallakuri.png" alt="">
+  </div>
+</div>
+</body>
+</html>
