@@ -115,7 +115,14 @@ block and edit it — the classes carry all the styling.
   measured. `.outcomes` is one shared grid and each `li` is `display: contents`,
   so the figures line up in a true column. Don't give the `li` its own grid.
 - **A case note** — `<article class="spec">` in `#proof`, always Context / Move /
-  Result. The result column carries `class="res"`, which is what makes it teal.
+  Result. The result column carries `class="res"`, which is what makes it teal,
+  and holds a `<ul class="spec__metrics">` of figure-plus-label pairs.
+- **A capability or role bullet** — `<ul class="points">`. Each item takes a
+  short violet rule instead of a disc, so a list reads as an axis tick rather
+  than prose. Used for the role bullets in every experience panel.
+- **A core expertise area** — an `<article class="cell">` in the `#expertise`
+  matrix: `.cell__no` (the two-digit index), an `<h3>`, a `.cell__lead`
+  one-liner, a supporting paragraph, then `<ul class="chips">`.
 - **A testimonial** — `<figure class="voice">` in `#voices`.
 - **A stat** — `<div class="readout__item">`. `data-count` drives the count-up and
   must be a bare integer, with any `$`, `%` or `+` in a sibling `<span class="u">`.
@@ -134,7 +141,7 @@ backwards produces negative widths. Year ticks descend left to right.
 
 Each `.ct-row` is a real button with `role`, `tabindex` and an `aria-label`.
 
-**The fan diagram** in "One offering, nine assets" is hand-authored SVG.
+**The fan diagram** in the AI-enabled marketing section is hand-authored SVG.
 Within-group dot spacing is 14px and between-group 27px so the three journey
 stages read as three groups. Change a dot and change its path endpoint to match.
 

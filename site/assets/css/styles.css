@@ -596,6 +596,23 @@ a { color: inherit; }
 }
 .outcomes span { font-size: var(--t-sm); color: var(--ink-2); line-height: 1.45; }
 
+/* Role and capability bullets. A short violet rule rather than a disc, so the
+   list reads as an axis tick like everything else on the page. */
+.points { list-style: none; padding: 0; display: grid; gap: var(--s-2); }
+.points li {
+  position: relative; padding-left: var(--s-3);
+  font-size: var(--t-sm); color: var(--ink-2); line-height: 1.55;
+}
+.points li::before {
+  content: ""; position: absolute; left: 0; top: .65em;
+  width: 7px; height: 1px; background: var(--violet);
+}
+.subroles__note {
+  font-family: var(--f-mono); font-style: normal; font-size: var(--t-xs);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  display: block; margin-top: 2px;
+}
+
 .subroles { margin-top: var(--s-4); border-top: 1px solid var(--grid); padding-top: var(--s-3); }
 .subroles h4 {
   font-family: var(--f-mono); font-size: var(--t-xs); font-weight: 500;
@@ -617,6 +634,9 @@ a { color: inherit; }
   grid-template-columns: 1fr;
 }
 @media (min-width: 48rem) { .matrix { grid-template-columns: 1fr 1fr; } }
+/* Three cells read badly in a two-up grid — the odd one out leaves a slab of
+   hairline colour — so the AI section takes its own three-up track. */
+@media (min-width: 62rem) { .matrix--tri { grid-template-columns: repeat(3, 1fr); } }
 
 .cell {
   background: var(--ground);
@@ -628,8 +648,20 @@ a { color: inherit; }
 }
 .section--alt .cell { background: var(--ground-2); }
 .cell:hover { background: var(--surface); }
+.cell__no {
+  font-family: var(--f-mono); font-size: var(--t-xs); font-weight: 500;
+  letter-spacing: .16em; color: var(--violet-ink);
+}
 .cell h3 { font-size: var(--t-lg); font-weight: 600; }
+.cell__lead { color: var(--ink-2); font-size: var(--t-md); line-height: 1.5; }
+.cell__sub {
+  font-family: var(--f-mono); font-size: var(--t-xs); font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+  margin-top: var(--s-1);
+}
+.beyond__cta { margin-top: var(--s-4); }
 .cell > p { font-size: var(--t-sm); color: var(--muted); line-height: 1.55; }
+.cell > p.cell__lead { font-size: var(--t-md); color: var(--ink-2); }
 
 .chips { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0; margin-top: var(--s-1); }
 .chips li {
@@ -669,6 +701,21 @@ a { color: inherit; }
 .spec__grid .res h4 { color: var(--signal-ink); }
 .spec__grid .res p { color: var(--signal-ink); }
 
+/* Several measured outcomes per case, figure first. Teal throughout, because
+   every line in this column is a result. */
+.spec__metrics { list-style: none; padding: 0; display: grid; gap: var(--s-2); }
+.spec__metrics li { font-size: var(--t-sm); line-height: 1.45; color: var(--signal-ink); }
+.spec__metrics b {
+  font-family: var(--f-display);
+  font-variation-settings: "wdth" 110;
+  font-weight: 700;
+  font-size: var(--t-lg);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  display: block;
+}
+.spec__metrics span { color: var(--ink-2); }
+
 /* Fan diagram */
 .fan { margin-top: var(--s-2); width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; }
 .fan svg { width: 100%; min-width: 34rem; height: auto; display: block; }
@@ -688,7 +735,26 @@ a { color: inherit; }
 .fan .fade { opacity: 0; }
 .fan[data-drawn="true"] .fade { animation: fadein .5s var(--ease) .7s forwards; }
 @keyframes fadein { to { opacity: 1; } }
-.fan__cap { margin-top: var(--s-2); font-family: var(--f-mono); font-size: var(--t-xs); color: var(--muted); }
+
+/* The fan diagram framed as a figure of its own in the AI section. */
+.fanwrap {
+  margin-top: var(--s-4);
+  border: 1px solid var(--grid);
+  background: var(--surface);
+  padding: var(--s-4) var(--s-3) var(--s-3);
+  box-shadow: var(--shadow);
+}
+.section--alt .fanwrap { background: var(--ground-2); }
+.fanwrap__cap {
+  font-family: var(--f-mono); font-size: var(--t-xs);
+  letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: var(--s-3); padding-inline: var(--s-2);
+}
+.fanwrap__note {
+  margin-top: var(--s-3); padding-inline: var(--s-2);
+  font-size: var(--t-sm); color: var(--ink-2);
+}
+.fanwrap__note b { color: var(--signal-ink); font-weight: 600; }
 
 /* ---------- 11. Voices ------------------------------------ */
 

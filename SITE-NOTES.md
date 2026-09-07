@@ -86,6 +86,36 @@ The map also says *where* but never *when*. Ten markets could be read as
 current scope rather than nineteen years of accumulated scope; the fix is a
 line in the figure caption, not more geometry.
 
+### 10. Where the current copy came from
+
+The Sep 2026 content pass took its wording from five documents Aparna supplied
+(kept in her Downloads, not in the repo): *Core Expertise*, *Case Studies*,
+*Description of each role in the company*, *Beyond the Day Job*, and
+*AI-Enabled Marketing | How I Work*. Section copy is hers, lightly edited to
+British spelling and the site's register. If a claim on the page needs
+checking, those documents are the source, not the résumé.
+
+Two things to know about that pass:
+
+- **Mount Carmel teaching.** Her earlier brief said "Digital Marketing"; the
+  *Beyond the Day Job* document says "Principles of Marketing". The document
+  wins, since it is her own newer writing, but the year (2015–16) and audience
+  (undergraduates) come from the brief. **Worth confirming which subject is
+  right** — the two sources disagree and only she can settle it.
+- **EY has no case study.** The *Case Studies* document covers ZainTECH,
+  Soroco, MAFTECH and IBM WebSphere only, so the old EY case note was retired.
+  Her EY outcomes still appear in the Experience panel.
+
+### 11. What was dropped in the Sep 2026 pass
+
+- The old **Areas of practice** four-cell grid, replaced by the six-area
+  **Core expertise** matrix.
+- Two old case notes: *One offering, nine assets* (the fan diagram moved to
+  the new AI section, where it illustrates the workflow rather than sitting as
+  a standalone result) and *Getting on the analysts' map* (the Leader
+  recognition it carried survives in the ZainTECH experience panel and the
+  hero lede).
+
 ---
 
 ## Resolved
