@@ -33,9 +33,23 @@ python3 scripts/check.py
 ```
 
 It verifies tag balance, that every local link and asset resolves, one `<h1>`,
-alt text on images, required files, and that no private phone number leaks into
-`site/`. The same script gates deployment, so a failure here means a failure in
-CI. Fix it before committing rather than pushing and hoping.
+alt text on images, required files, that no private phone number leaks into
+`site/`, and that the CSS and JS cache stamps are current. The same script gates
+deployment, so a failure here means a failure in CI. Fix it before committing
+rather than pushing and hoping.
+
+**After editing `styles.css` or `main.js`, run:**
+
+```bash
+python3 scripts/stamp-assets.py
+```
+
+It rewrites the `?v=` hash on those two links in `index.html`. GitHub Pages
+serves everything with `cache-control: max-age=600` and no hash in the filename,
+so without this a returning visitor can get new markup with the previous
+stylesheet and script for up to ten minutes after a deploy. That is not
+hypothetical — it shipped a nav menu whose button rendered but could not open.
+`check.py` fails if the stamps are stale, so this cannot be forgotten silently.
 
 To preview locally: `cd site && python3 -m http.server 8080`.
 

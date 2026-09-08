@@ -13,6 +13,7 @@ Usage:  python3 scripts/check.py
 
 import os
 import re
+import subprocess
 import sys
 from html.parser import HTMLParser
 
@@ -180,11 +181,28 @@ def check_cname():
             errors.append("site/CNAME must contain just the domain, found %r" % domain)
 
 
+def check_asset_stamps():
+    """CSS and JS must be linked with a ?v= hash of their contents.
+
+    Without it, GitHub Pages' 10-minute cache can pair new markup with the
+    previous stylesheet and script. See scripts/stamp-assets.py.
+    """
+    stamper = os.path.join(ROOT, "scripts", "stamp-assets.py")
+    if not os.path.exists(stamper):
+        warnings.append("scripts/stamp-assets.py is missing; asset URLs unchecked")
+        return
+    rc = subprocess.call([sys.executable, stamper, "--check"])
+    if rc != 0:
+        errors.append("asset cache stamps are out of date "
+                      "(run: python3 scripts/stamp-assets.py)")
+
+
 def main():
     check_required_files()
     check_html()
     check_private_data()
     check_cname()
+    check_asset_stamps()
 
     for w in warnings:
         print("WARNING  %s" % w)
