@@ -267,7 +267,68 @@ a { color: inherit; }
 :root[data-theme="dark"] .toggle .i-sun { display: none; }
 :root[data-theme="dark"] .toggle .i-moon { display: block; }
 
-@media (max-width: 55rem) { .nav__links { display: none; } }
+/* ---------- Mobile and tablet menu ------------------------ */
+
+/* The burger only exists where JS can drive it. Without JS the links stay in
+   the bar and wrap, which is why .nav__inner drops its fixed height below the
+   breakpoint — a permanently-open panel would be worse than a taller bar. */
+.burger { display: none; }
+.burger .b-close { display: none; }
+
+@media (max-width: 55rem) {
+  .js .burger {
+    display: grid; place-items: center;
+    width: 2rem; height: 2rem; flex: none;
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--grid-strong);
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .js .burger:hover { color: var(--ink); border-color: var(--violet); }
+  .js .burger svg { width: 1.05rem; height: 1.05rem; }
+  .js .burger[aria-expanded="true"] { color: var(--ink); border-color: var(--violet); }
+  .js .burger[aria-expanded="true"] .b-open  { display: none; }
+  .js .burger[aria-expanded="true"] .b-close { display: block; }
+
+  /* The theme toggle keeps its place; the burger takes the auto margin. */
+  .toggle { margin-left: var(--s-2); }
+
+  .nav__inner { height: auto; min-height: 4rem; flex-wrap: wrap; row-gap: var(--s-2); padding-block: var(--s-2); }
+  .nav__links { flex-wrap: wrap; margin-left: 0; }
+
+  /* With JS the list becomes a panel dropping from the bar, full-bleed so it
+     reads as a surface rather than a floating card. */
+  .js .nav__links {
+    position: absolute; left: 0; right: 0; top: 100%;
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: var(--s-2) 0 var(--s-3);
+    background: var(--ground);
+    border-bottom: 1px solid var(--grid);
+    box-shadow: var(--shadow);
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+  .js .nav__links[data-open="false"] { display: none; }
+
+  .js .nav__links li { width: min(100% - 2.5rem, var(--shell)); margin-inline: auto; }
+  .js .nav__links a {
+    display: block;
+    font-size: 1.0625rem;
+    padding: var(--s-2) 0;
+    border-bottom: 1px solid var(--grid);
+    border-left: 2px solid transparent;
+    padding-left: var(--s-2);
+    margin-left: calc(var(--s-2) * -1);
+  }
+  .js .nav__links li:last-child a { border-bottom: 0; }
+  .js .nav__links a:hover { border-bottom-color: var(--grid); border-left-color: var(--violet); }
+  .js .nav__links a[aria-current="true"] { border-bottom-color: var(--grid); border-left-color: var(--signal); }
+}
+
 
 /* ---------- 5. Hero --------------------------------------- */
 

@@ -26,6 +26,59 @@
     window.addEventListener("scroll", stick, { passive: true });
   }
 
+  /* ---------- Mobile and tablet menu ---------- */
+  var burger = document.getElementById("nav-burger");
+  var menu = document.getElementById("nav-menu");
+  if (burger && menu) {
+    // Matches the CSS breakpoint. Above it the panel is a plain nav bar again,
+    // so the hidden attribute must come off or the links would vanish.
+    var narrow = window.matchMedia("(max-width: 55rem)");
+
+    // State only. Whether the panel is on screen is the stylesheet's call, so a
+    // stale open state can never hide the desktop bar.
+    function setMenu(open) {
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+      menu.setAttribute("data-open", open ? "true" : "false");
+    }
+    setMenu(false);
+
+    burger.addEventListener("click", function () {
+      setMenu(burger.getAttribute("aria-expanded") !== "true");
+    });
+
+    // Jumping to a section should close the menu behind you.
+    menu.addEventListener("click", function (e) {
+      if (narrow.matches && e.target.closest && e.target.closest("a")) setMenu(false);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && burger.getAttribute("aria-expanded") === "true") {
+        setMenu(false);
+        burger.focus();
+      }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!narrow.matches || burger.getAttribute("aria-expanded") !== "true") return;
+      if (!menu.contains(e.target) && !burger.contains(e.target)) setMenu(false);
+    });
+
+    // Crossing the breakpoint (a tablet rotating, say) closes the menu. The
+    // resize guard compares against the last known side of the breakpoint, so a
+    // mobile address bar sliding away does not count as a crossing and cannot
+    // close the menu under the reader.
+    var wasNarrow = narrow.matches;
+    function onBreakpoint() {
+      var now = narrow.matches;
+      if (now === wasNarrow) return;
+      wasNarrow = now;
+      setMenu(false);
+    }
+    if (narrow.addEventListener) narrow.addEventListener("change", onBreakpoint);
+    else if (narrow.addListener) narrow.addListener(onBreakpoint);
+    window.addEventListener("resize", onBreakpoint, { passive: true });
+  }
+
   /* ---------- Reveal on scroll ---------- */
   var reveals = document.querySelectorAll("[data-reveal]");
   if (reduced || !hasIO) {
