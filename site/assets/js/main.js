@@ -30,9 +30,11 @@
   var burger = document.getElementById("nav-burger");
   var menu = document.getElementById("nav-menu");
   if (burger && menu) {
-    // Matches the CSS breakpoint. Above it the panel is a plain nav bar again,
-    // so the hidden attribute must come off or the links would vanish.
-    var narrow = window.matchMedia("(max-width: 55rem)");
+    // Must match the breakpoint in styles.css. It is set by how much room the
+    // links need, not by any device size: nine links plus the mark and the
+    // theme toggle need about 1150px, and below that the bar used to overflow
+    // and scroll the whole page sideways. Adding a nav item means re-measuring.
+    var narrow = window.matchMedia("(max-width: 72rem)");
 
     // State only. Whether the panel is on screen is the stylesheet's call, so a
     // stale open state can never hide the desktop bar.

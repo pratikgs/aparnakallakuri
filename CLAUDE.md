@@ -138,6 +138,13 @@ block and edit it — the classes carry all the styling.
   matrix: `.cell__no` (the two-digit index), an `<h3>`, a `.cell__lead`
   one-liner, a supporting paragraph, then `<ul class="chips">`.
 - **A testimonial** — `<figure class="voice">` in `#voices`.
+- **A nav item** — an `<li>` in `.nav__links`. Adding one widens the bar, and
+  the bar has no fallback: past a certain width the links stop fitting and the
+  **whole page scrolls sideways**. The hamburger breakpoint (`72rem`, in both
+  `styles.css` and `main.js`, which must agree) is set to switch over just
+  before that happens. Add a link and you must re-measure it: narrow the window
+  until `document.documentElement.scrollWidth` exceeds `window.innerWidth`, and
+  move the breakpoint above that width.
 - **A stat** — `<div class="readout__item">`. `data-count` drives the count-up and
   must be a bare integer, with any `$`, `%` or `+` in a sibling `<span class="u">`.
 

@@ -275,7 +275,7 @@ a { color: inherit; }
 .burger { display: none; }
 .burger .b-close { display: none; }
 
-@media (max-width: 55rem) {
+@media (max-width: 72rem) {
   .js .burger {
     display: grid; place-items: center;
     width: 2rem; height: 2rem; flex: none;
@@ -380,14 +380,19 @@ a { color: inherit; }
   border-left: 2px solid var(--signal);
   border-top: 2px solid var(--signal);
 }
-.hero__vitals { display: grid; gap: 2px; }
-.hero__vitals span {
+/* Four figure-and-label pairs. Grouped with a gap so each figure reads with
+   its own label rather than the block reading as one eight-line list. */
+.hero__vitals { display: grid; gap: var(--s-2); }
+.vital { display: grid; gap: 2px; }
+.hero__vitals span,
+.hero__vitals b {
   font-family: var(--f-mono);
   font-size: var(--t-xs);
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--muted);
+  line-height: 1.45;
 }
+.hero__vitals span { color: var(--muted); }
 .hero__vitals b { color: var(--ink); font-weight: 500; }
 
 .actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
