@@ -368,17 +368,18 @@ a { color: inherit; }
   gap: var(--s-3);
   padding-top: 4px;
 }
+/* Sized to the vitals block beside it, so the two read as one unit. The square
+   corner tick that used to mark it is gone: it was a right angle pointing at a
+   circle, and it was teal, which this design system reserves for outcomes. */
 .hero__portrait { position: relative; flex: none; }
 .hero__portrait img {
-  width: 104px; height: 104px;
+  width: 172px; height: 172px;
   object-fit: cover;
+  border-radius: 50%;
   border: 1px solid var(--grid-strong);
 }
-.hero__portrait::after {
-  content: ""; position: absolute; left: -5px; top: -5px;
-  width: 12px; height: 12px;
-  border-left: 2px solid var(--signal);
-  border-top: 2px solid var(--signal);
+@media (max-width: 30rem) {
+  .hero__portrait img { width: 132px; height: 132px; }
 }
 /* Four figure-and-label pairs. Grouped with a gap so each figure reads with
    its own label rather than the block reading as one eight-line list. */

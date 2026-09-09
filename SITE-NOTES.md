@@ -4,12 +4,13 @@ Everything on the site traces to Aparna's résumé, her LinkedIn profile, or bot
 These are the points where the two sources disagree, or where a judgement call
 was made that she should confirm.
 
-### 1. The headshot is only 160×160
+### 1. The headshot ~~is only 160×160~~ — resolved Sep 2026
 
-It was extracted from the résumé PDF — the only copy available. It is sharp
-enough at the 148px it renders at, but soft on retina screens and in link
-previews. Replace `site/assets/img/aparna-kallakuri.png` with a 600px+ original
-and regenerate the link-preview card.
+Replaced with a proper studio headshot she supplied: cropped square on the face
+and stored at 640×640, so it stays sharp on retina screens and in the
+link-preview card. It renders as a 172px circle, sized to the vitals block
+beside it. The source crop is `sips -c 820 820 --cropOffset 70 160` from her
+original 1106×1280 frame.
 
 ### 2. ZainTECH end date
 
